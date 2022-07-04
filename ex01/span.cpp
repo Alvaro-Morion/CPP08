@@ -6,11 +6,12 @@
 /*   By: amorion- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 11:14:21 by amorion-          #+#    #+#             */
-/*   Updated: 2022/07/03 12:15:43 by amorion-         ###   ########.fr       */
+/*   Updated: 2022/07/04 18:02:33 by amorion-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "span.hpp"
+#include<iostream>
 /* Constructor and destructor */
 span::span()
 {};
@@ -65,9 +66,21 @@ void	span::addNumber(int n)
 	}
 }
 
+void	span::addNumber(std::vector<int>::iterator i1, std::vector<int>::iterator i2)
+{
+	while(full < size && i1 != i2)
+	{
+		v.push_back(*i1);
+		i1++;
+		full++;
+	}
+	if (full == size && i1 != i2)
+		throw(std::out_of_range("Span is full: Unable to complete insertion\n"));
+}
+
 int	span::longestSpan(void) const
 {
-	if(size < 2)
+	if(full < 2)
 		throw(std::out_of_range("not enough elements\n"));
 	else
 		return(*std::max_element(v.begin(), v.end())-*std::min_element(v.begin(), v.end()));
@@ -75,15 +88,16 @@ int	span::longestSpan(void) const
 
 int	span::shortestSpan(void) const
 {
-	if (size < 2)
+	if (full < 2)
 		throw(std::out_of_range("not enough elements\n"));
 	else
 	{
 		std::vector<int>::const_iterator i = v.begin();
 		std::vector<int>::const_iterator j = i + 1;
 		std::vector<int>::const_iterator last = v.end();
-		int dif = j - i;
-		while(i != (last - 1))
+		int dif;
+		*j > *i ? dif = *j - *i : dif = *i - *j;
+		while(i != last - 1)
 		{
 			j = i + 1;
 			while(j != last)
@@ -93,7 +107,6 @@ int	span::shortestSpan(void) const
 				else if(*j < *i && *i - *j < dif)
 					dif = *i - *j;
 				j++;
-
 			}
 			if(dif == 0)
 				break;
