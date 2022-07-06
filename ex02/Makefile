@@ -6,11 +6,11 @@
 #    By: amorion- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/26 10:21:51 by amorion-          #+#    #+#              #
-#    Updated: 2022/07/04 18:07:27 by amorion-         ###   ########.fr        #
+#    Updated: 2022/07/06 18:18:01 by amorion-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = main.cpp
+SRCS = mutantstack.cpp main.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
